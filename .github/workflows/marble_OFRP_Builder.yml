@@ -45,7 +45,7 @@ on:
       MAGISK_VERSION:
         description: '选择你的Magisk版本'
         required: true
-        default: 'Magisk'
+        default: 'MagiskAlpha'
         type: choice
         options:
         - Magisk
