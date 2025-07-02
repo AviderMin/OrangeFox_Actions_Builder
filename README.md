@@ -17,4 +17,4 @@ Compile your first custom recovery from OrangeFox Recovery using Github Action.
 * Make sure your tree uses right variable (updated vars) from OrangeFox; [fox_14.1](https://gitlab.com/OrangeFox/vendor/recovery/-/blob/fox_14.1/orangefox_build_vars.txt) and [fox_12.1](https://gitlab.com/OrangeFox/vendor/recovery/-/blob/fox_12.1/orangefox_build_vars.txt), to avoid build erros.
 
  # Actions workflow
-* Thanks @ymdzq
+* Thanks [@ymdzq](https://github.com/ymdzq/OrangeFox-Action-Builder)
