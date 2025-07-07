@@ -112,6 +112,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         export OF_MAINTAINER=${{ inputs.OF_MAINTAINER }}
+        export FOX_USE_NANO_EDITOR=1
         set -e
         lunch twrp_${{ inputs.DEVICE_NAME }}-eng && make clean && mka adbd ${{ inputs.BUILD_TARGET }}image
     - name: 🏷️ 设置发布属性
