@@ -19,6 +19,14 @@ on:
         description: 'OrangeFox 设备树分支'
         required: true
         default: 'fox_12.1'
+      KERNEL_SOURCE:
+        description: '内核源码仓库地址'
+        required: true
+        default: 'https://github.com/liyafe1997/kernel_xiaomi_sm8250_mod'
+      KERNEL_BRANCH:
+        description: '内核源码分支'
+        required: true
+        default: 'android15-lineage22-mod'
       DEVICE_PATH:
         description: '输入你的设备路径'
         required: true
@@ -54,6 +62,7 @@ on:
         required: false
         default: '-Nijika-v2.0-SukiSU'
 
+
 jobs:
   build:
     name: 🏗️ 构建 OrangeFox for munch by ${{ github.actor }}
@@ -61,6 +70,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       OF_MAINTAINER: ${{ inputs.OF_MAINTAINER }}
+      KERNEL_DIR: ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/kernel/xiaomi/munch
     permissions:
       contents: write
     steps:
@@ -97,7 +107,9 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
         git clone ${{ inputs.DEVICE_TREE }} -b ${{ inputs.DEVICE_TREE_BRANCH }} ./${{ inputs.DEVICE_PATH }}
-        git clone https://github.com/liyafe1997/kernel_xiaomi_sm8250_mod --depth=1 kernel/xiaomi/munch
+        git clone ${{ inputs.KERNEL_SOURCE }} \
+          -b ${{ inputs.KERNEL_BRANCH }} \
+          --depth=1 ${KERNEL_DIR}
         git clone https://github.com/kdrag0n/proton-clang --depth=1 prebuilts/clang/host/linux-x86/clang-13.0.0
         cd ${{ inputs.DEVICE_PATH }}
         echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
@@ -158,7 +170,7 @@ jobs:
           ## OrangeFox Recovery Build - Unofficial
           Build: fox_${{ inputs.MANIFEST_BRANCH }}
           Device: [Device Tree/Branch](${{ inputs.DEVICE_TREE }}/tree/${{ inputs.DEVICE_TREE_BRANCH }})
-          Kernel: [Kernel Source](https://github.com/liyafe1997/kernel_xiaomi_sm8250_mod)
+          Kernel: [Kernel Source](${{ inputs.KERNEL_SOURCE }}/tree/${{ inputs.KERNEL_BRANCH }})
           Kernel Version: ${{ inputs.KERNEL_NAME || 'Default' }}
           Commit: Most recent [commit](${{ inputs.DEVICE_TREE }}/commit/${{ env.COMMIT_ID }}) during building.
           Maintainer: ${{ inputs.OF_MAINTAINER }}
