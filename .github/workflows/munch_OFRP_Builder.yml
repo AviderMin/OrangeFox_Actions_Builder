@@ -126,7 +126,7 @@ jobs:
           echo "Set TARGET_KERNEL_VERSION to ${{ inputs.KERNEL_NAME }}"
         else
           echo "BoardConfig.mk not found!"
-        end
+        fi
     
     - name: ⚡ 更新 OrangeFox 的内置 Magisk
       run: |
