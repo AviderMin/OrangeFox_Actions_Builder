@@ -119,6 +119,18 @@ jobs:
       run: |
         echo "BUILD_DATE=$(TZ=Asia/Manila date +%Y%m%d)" >> $GITHUB_ENV
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
+    - name: 📦 处理输出文件
+      run: |
+        OUT_DIR=${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}/out/target/product/${{ inputs.DEVICE_NAME }}/target/product/${{ inputs.DEVICE_NAME }}
+        for f in "$OUT_DIR"/OrangeFox*.img "$OUT_DIR"/OrangeFox*.zip; do
+          [ -e "$f" ] || continue
+          base=$(basename "$f")
+          ext="${base##*.}"
+          name="${base%.*}"
+          mv "$f" "$OUT_DIR/${name}-${BUILD_DATE}.${ext}"
+        done
+      env:
+        BUILD_DATE: ${{ env.BUILD_DATE }}
     - name: 🚀 上传至 Release
       uses: softprops/action-gh-release@v2
       with:
