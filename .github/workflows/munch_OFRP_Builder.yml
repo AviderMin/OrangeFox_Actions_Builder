@@ -94,20 +94,22 @@ jobs:
     - name: 📥 克隆源码
       run: |
         cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ inputs.MANIFEST_BRANCH }}
-        
+
         # 解析设备树
-        DEVICE_TREE_URL=${inputs.DEVICE_TREE%#*}
-        DEVICE_TREE_BRANCH=${inputs.DEVICE_TREE#*#}
+        DEVICE_TREE="${{ inputs.DEVICE_TREE }}"
+        DEVICE_TREE_URL=${DEVICE_TREE%#*}
+        DEVICE_TREE_BRANCH=${DEVICE_TREE#*#}
         git clone ${DEVICE_TREE_URL} -b ${DEVICE_TREE_BRANCH} ${DEVICE_PATH}
-        
+
         # 解析内核
-        KERNEL_URL=${inputs.KERNEL_SOURCE%#*}
-        KERNEL_BRANCH=${inputs.KERNEL_SOURCE#*#}
+        KERNEL_SOURCE="${{ inputs.KERNEL_SOURCE }}"
+        KERNEL_URL=${KERNEL_SOURCE%#*}
+        KERNEL_BRANCH=${KERNEL_SOURCE#*#}
         git clone ${KERNEL_URL} -b ${KERNEL_BRANCH} --depth=1 ${KERNEL_DIR}
-        
+
         # 克隆编译工具链
         git clone https://github.com/kdrag0n/proton-clang --depth=1 ${CLANG_DIR}
-        
+
         cd ${DEVICE_PATH}
         echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
