@@ -162,7 +162,7 @@ jobs:
         name: ${{ env.RELEASE_NAME }}
         tag_name: build-${{ env.BUILD_DATE }}
         body: |
-          ### OrangeFox Recovery for ${{ inputs.DEVICE_NAME | uppercase }}
+          ### OrangeFox Recovery for ${{ inputs.DEVICE_NAME }}
           **Build Date:** ${{ env.BUILD_DATE }}  
           **Manifest Branch:** ${{ inputs.MANIFEST_BRANCH }}  
           **Device Tree:** [${{ inputs.DEVICE_TREE }}](${inputs.DEVICE_TREE%#*})  
