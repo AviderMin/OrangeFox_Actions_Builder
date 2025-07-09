@@ -48,7 +48,7 @@ on:
       OF_MAINTAINER:
         description: '输入维护者名称'
         required: true
-        default: 'YourName'
+        default: 'AviderMin'
       KERNEL_NAME:
         description: '自定义内核名称后缀'
         required: false
