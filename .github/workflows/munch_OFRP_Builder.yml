@@ -18,7 +18,7 @@ on:
       DEVICE_TREE_BRANCH:
         description: 'OrangeFox 设备树分支'
         required: true
-        default: 'main'
+        default: 'fox_12.1'
       DEVICE_PATH:
         description: '输入你的设备路径'
         required: true
